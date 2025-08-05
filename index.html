@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>To-Do List - SanchitWebWorks</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 40px;
+    }
+
+    .todo-container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .branding {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .branding img {
+      width: 60px;
+      height: auto;
+      border-radius: 50%;
+    }
+
+    .branding p {
+      font-weight: bold;
+      font-size: 14px;
+      color: #666;
+      margin-top: 8px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    #taskInput {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #aaa;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    #addTaskBtn {
+      width: 100%;
+      padding: 10px;
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    #addTaskBtn:hover {
+      background: #218838;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 20px;
+    }
+
+    li {
+      background: #f9f9f9;
+      padding: 10px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 5px;
+    }
+
+    li.completed {
+      text-decoration: line-through;
+      color: #888;
+      background: #e6e6e6;
+    }
+
+    .btn-remove {
+      background: #dc3545;
+      color: white;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .btn-remove:hover {
+      background: #c82333;
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 20px;
+      }
+
+      .todo-container {
+        padding: 20px;
+      }
+
+      .branding img {
+        width: 50px;
+      }
+
+      .branding p {
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="todo-container">
+    <div class="branding">
+      <img src="https://i.postimg.cc/CLKfcY0b/Olivi-2.png" alt="SanchitWebWorks Logo">
+      <p>Made by SanchitWebWorks</p>
+    </div>
+
+    <h2>My To-Do List</h2>
+    <input type="text" id="taskInput" placeholder="Enter new task...">
+    <button id="addTaskBtn">Add Task</button>
+    <ul id="taskList"></ul>
+  </div>
+
+  <script>
+    const addBtn = document.getElementById('addTaskBtn');
+    const taskInput = document.getElementById('taskInput');
+    const taskList = document.getElementById('taskList');
+
+    addBtn.addEventListener('click', () => {
+      const taskText = taskInput.value.trim();
+      if (taskText === '') return;
+
+      const li = document.createElement('li');
+      li.textContent = taskText;
+
+      // Toggle complete
+      li.addEventListener('click', () => {
+        li.classList.toggle('completed');
+      });
+
+      // Remove button
+      const removeBtn = document.createElement('button');
+      removeBtn.textContent = 'Remove';
+      removeBtn.className = 'btn-remove';
+      removeBtn.addEventListener('click', (e) => {
+        e.stopPropagation(); // prevent toggle
+        li.remove();
+      });
+
+      li.appendChild(removeBtn);
+      taskList.appendChild(li);
+      taskInput.value = '';
+    });
+  </script>
+
+</body>
+</html>
